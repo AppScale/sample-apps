@@ -2,6 +2,7 @@
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
   <application>ae-book</application>
   <version>exampletest</version>
+  <threadsafe>true</threadsafe>
 
   <static-files>
     <include path="static/**" />
