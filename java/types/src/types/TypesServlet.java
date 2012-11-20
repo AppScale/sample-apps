@@ -1,5 +1,6 @@
 package types;
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -19,11 +20,12 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.ShortBlob;
 import com.google.appengine.api.datastore.Text;
 
+
 @SuppressWarnings({ "serial", "unchecked" })
-public class TypesServlet extends HttpServlet {
-    public void doGet(HttpServletRequest req,
-                      HttpServletResponse resp)
-        throws IOException {
+public class TypesServlet extends HttpServlet
+{
+    public void doGet( HttpServletRequest req, HttpServletResponse resp ) throws IOException
+    {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
 
@@ -64,46 +66,50 @@ public class TypesServlet extends HttpServlet {
         e1.setProperty("multivaluedProp", mvp);
 
         ds.put(e1);
-        out.println("<p>Created an entity, key: " +
-                    KeyFactory.keyToString(e1.getKey()) + "</p>");
+        out.println("<p>Created an entity, key: " + KeyFactory.keyToString(e1.getKey()) + "</p>");
 
         Entity e2 = new Entity("Kind");
         e2.setProperty("keyProp", e1.getKey());
         ds.put(e2);
 
-        out.println("<p>Created an entity, key: " +
-                    KeyFactory.keyToString(e2.getKey()) + "</p>");
+        out.println("<p>Created an entity, key: " + KeyFactory.keyToString(e2.getKey()) + "</p>");
 
-        try {
+        try
+        {
             Entity result = ds.get(e1.getKey());
 
             // All integer types returned as Long.
-            Long resultIntegerPropValue =
-                (Long) result.getProperty("integerProp");
+            Long resultIntegerPropValue = (Long)result.getProperty("integerProp");
 
-            if (resultIntegerPropValue == null) {
+            if (resultIntegerPropValue == null)
+            {
                 out.println("<p>Entity didn't have a property named integerProp.</p>");
-            } else {
-                out.println("<p>Entity property integerProp = " +
-                            resultIntegerPropValue + "</p>");
+            }
+            else
+            {
+                out.println("<p>Entity property integerProp = " + resultIntegerPropValue + "</p>");
             }
 
             // Multivalued properties returned as List.
-            List<Object> resultMvp =
-                (List<Object>) result.getProperty("multivaluedProp");
-            if (resultMvp == null) {
+            List<Object> resultMvp = (List<Object>)result.getProperty("multivaluedProp");
+            if (resultMvp == null)
+            {
                 out.println("<p>Entity didn't have a property named multivaluedProp.</p>");
-            } else {
+            }
+            else
+            {
                 out.println("<p>Multivalued property values:</p><ul>");
-                for (Object v : resultMvp) {
+                for (Object v : resultMvp)
+                {
                     out.println("<li>" + v + "</li>");
                 }
                 out.println("</ul>");
             }
 
-        } catch (EntityNotFoundException e) {
-            out.println("<p>Attempted to get an entity, but couldn't find it: " +
-                        e + "</p>");
+        }
+        catch (EntityNotFoundException e)
+        {
+            out.println("<p>Attempted to get an entity, but couldn't find it: " + e + "</p>");
         }
 
         ds.delete(e1.getKey());

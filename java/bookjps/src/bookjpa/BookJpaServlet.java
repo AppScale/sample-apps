@@ -1,5 +1,6 @@
 package bookjpa;
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -14,11 +15,12 @@ import com.google.appengine.api.datastore.KeyFactory;
 import bookjpa.EMF;
 import bookjpa.Book;
 
+
 @SuppressWarnings("serial")
-public class BookJpaServlet extends HttpServlet {
-    public void doGet(HttpServletRequest req,
-                      HttpServletResponse resp)
-        throws IOException {
+public class BookJpaServlet extends HttpServlet
+{
+    public void doGet( HttpServletRequest req, HttpServletResponse resp ) throws IOException
+    {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
 
@@ -27,23 +29,24 @@ public class BookJpaServlet extends HttpServlet {
         book.setTitle("The Grapes of Wrath");
         book.setAuthor("John Steinbeck");
         book.setCopyrightYear(1939);
-        Date authorBirthdate =
-            new GregorianCalendar(1902, Calendar.FEBRUARY, 27).getTime();
+        Date authorBirthdate = new GregorianCalendar(1902, Calendar.FEBRUARY, 27).getTime();
         book.setAuthorBirthdate(authorBirthdate);
-        try {
+        try
+        {
             em.persist(book);
-        } finally {
+        }
+        finally
+        {
             em.close();
         }
 
         // Because we're asking for a system-assigned ID in the key,
         // we can't access the Book's key until after the
-        // EntityManager has closed and the Book has been saved.  For
+        // EntityManager has closed and the Book has been saved. For
         // this example, we allow an exception thrown by the datastore
         // to propagate to the runtime environment and assume that if
         // we got here the Book was saved properly.
-        out.println("<p>Added a Book entity to the datastore via JPA, key: " +
-                    KeyFactory.keyToString(book.getKey()));
+        out.println("<p>Added a Book entity to the datastore via JPA, key: " + KeyFactory.keyToString(book.getKey()));
 
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSSSSS");
         fmt.setTimeZone(new SimpleTimeZone(0, ""));
