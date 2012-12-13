@@ -135,13 +135,24 @@ class KindTestCase():
   def kindlessTest(self): 
     # kindless query
     q = db.Query()
-    q.filter('__key__ >', self.gp1) 
+    q.filter('__key__ >=', self.gp1) 
     # we may get 3 or 6 entities depending on order of gp1.name 
     # compared to gp2.name
     count = 0
     for ent in q:
       count += 1
     assert count == 3 or count == 6
+
+    q = db.Query()
+    q.filter('__key__ >', self.gp1) 
+    # we may get 2 or 5 entities depending on order of gp1.name 
+    # compared to gp2.name. It's not 3 or 6 because we did not 
+    # include the equal operator
+    count = 0
+    for ent in q:
+      count += 1
+    assert count == 2 or count == 5
+
 
   def getTest(self):
     gp = GP.get_by_key_name(self.gp1.name, parent=None)
@@ -362,7 +373,7 @@ class KindTestCase():
       db.delete(ent)
 
     
-#TODO test out special characters in the values like ! and chr(255)
+# TODO test out special characters in the values like ! and chr(255)
 # TODO test with multiple entities having the same value for a prop
 # TODO Test None cases
 # Reset:
