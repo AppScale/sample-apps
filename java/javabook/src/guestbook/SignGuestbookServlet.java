@@ -30,7 +30,17 @@ public class SignGuestbookServlet extends HttpServlet {
             pm.makePersistent(greeting);
             long t2 =System.nanoTime();
             System.out.println("actual POST time is: "+(t2-t1)/1000000);
-        } finally {
+        } 
+        catch(Exception e)
+        {
+            System.out.println("CAUGHT EXCEPTION");
+            for(StackTraceElement el : e.getStackTrace())
+            {
+                System.out.println(el.toString());
+            }
+        }
+            finally {
+        
             pm.close();
         }
 

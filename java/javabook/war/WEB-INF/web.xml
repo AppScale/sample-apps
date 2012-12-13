@@ -12,6 +12,15 @@
         <servlet-name>guestbook</servlet-name>
         <url-pattern>/guestbook</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>datastore</servlet-name>
+        <servlet-class>guestbook.DatastoreServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>datastore</servlet-name>
+        <url-pattern>/datastore</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>sign</servlet-name>
