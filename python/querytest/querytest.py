@@ -174,6 +174,14 @@ class KindTestCase():
       count += 1
     assert count == 1 
 
+  def kindOrderedAncestorTest(self):
+    q = db.GqlQuery("SELECT * FROM P WHERE ANCESTOR IS :1 ORDER BY rank LIMIT 10", self.gp1)
+    count = 0
+    for ent in q:
+      count += 1
+    assert count == 1
+
+ 
   def singlePropertyTest(self):
     q = GP.all()
     q.filter("rank =", "A")
@@ -392,6 +400,8 @@ kt.kindlessTest()
 t.done("KindlessTest")
 kt.kindlessAncestorTest()
 t.done("KindlessAncestorTest")
+kt.kindOrderedAncestorTest()
+t.done("KindOrderedAncestorTest")
 kt.getTest()
 t.done("GetTest")
 kt.singlePropertyTest()
