@@ -180,10 +180,7 @@ public class Game {
       value = 'O';
       currentMovePlayer = getUserO();
     }
-    System.out.println("USER: " + user);
-    System.out.println("CurrentMovePlayer: " + currentMovePlayer);
     if (currentMovePlayer.equals(user)) {
-      System.out.println("CURRENTMOVEPLAYER EQUALS USER");
       char[] boardBytes = getBoard().toCharArray();
       boardBytes[position] = value;
       setBoard(new String(boardBytes));
@@ -192,7 +189,6 @@ public class Game {
       sendUpdateToClients();
       return true;
     }
-    System.out.println("CURRENT MOVE PLAYER NOT EQUAL TO USER");
     
     return false;
   }
