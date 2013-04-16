@@ -21,6 +21,7 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.Cacheable;
 /**
  * @author moishel@google.com (Your Name Here)
  *
@@ -32,21 +33,27 @@ public class Game {
   private Key key;
 
   @Persistent
+  @Cacheable("false")
   private String userX;
 
   @Persistent
+  @Cacheable("false")
   private String userO;
 
   @Persistent
+  @Cacheable("false")
   private String board;
 
   @Persistent
+  @Cacheable("false")
   private Boolean moveX;
   
   @Persistent
+  @Cacheable("false")
   private String winner;
   
   @Persistent
+  @Cacheable("false")
   private String winningBoard;
 
   static final Pattern[] XWins = {
@@ -189,7 +196,6 @@ public class Game {
       sendUpdateToClients();
       return true;
     }
-    
     return false;
   }
 }

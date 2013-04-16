@@ -23,7 +23,7 @@ public class GetTokenServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     UserService userService = UserServiceFactory.getUserService();
-    String gameId = req.getParameter("gamekey"); 
+    String gameId = req.getParameter("gamekey");
     PersistenceManager pm = PMF.get().getPersistenceManager();
     Game game = pm.getObjectById(Game.class, KeyFactory.stringToKey(gameId));
     

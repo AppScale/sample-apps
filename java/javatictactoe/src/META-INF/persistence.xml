@@ -10,6 +10,7 @@
             <property name="datanucleus.NontransactionalRead" value="true"/>
             <property name="datanucleus.NontransactionalWrite" value="true"/>
             <property name="datanucleus.ConnectionURL" value="appengine"/>
+            <property name="datanucleus.cache.level2.type" value="none"/>
         </properties>
     </persistence-unit>
 </persistence>

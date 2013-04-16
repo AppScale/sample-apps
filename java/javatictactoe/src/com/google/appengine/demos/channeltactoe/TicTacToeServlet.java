@@ -72,7 +72,6 @@ public class TicTacToeServlet extends HttpServlet {
     
     ChannelService channelService = ChannelServiceFactory.getChannelService();
     String token = channelService.createChannel(game.getChannelKey(userId));
-
     FileReader reader = new FileReader("index-template");
     CharBuffer buffer = CharBuffer.allocate(16384);
     reader.read(buffer);

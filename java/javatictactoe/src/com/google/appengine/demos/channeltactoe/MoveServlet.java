@@ -19,7 +19,6 @@ public class MoveServlet extends HttpServlet {
     int piece = new Integer(req.getParameter("i"));
     PersistenceManager pm = PMF.get().getPersistenceManager();
     Game game = pm.getObjectById(Game.class, KeyFactory.stringToKey(gameId));
-    
     String currentUserId = userService.getCurrentUser().getUserId();
     if (!game.makeMove(piece, currentUserId)) {
       resp.setStatus(401);
