@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<servlet>
+		<servlet-name>MainPage</servlet-name>
+		<servlet-class>com.javachannel.MainPage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MainPage</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CreateChannel</servlet-name>
+		<servlet-class>com.javachannel.CreateChannel</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CreateChannel</servlet-name>
+		<url-pattern>/createchannel</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SendMessage</servlet-name>
+		<servlet-class>com.javachannel.SendMessage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SendMessage</servlet-name>
+		<url-pattern>/sendmessage</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PostMessage</servlet-name>
+		<servlet-class>com.javachannel.PostMessage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PostMessage</servlet-name>
+		<url-pattern>/postmessage</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ReceiveMessage</servlet-name>
+		<servlet-class>com.javachannel.ReceiveMessage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReceiveMessage</servlet-name>
+		<url-pattern>/receivemessage</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>SystemServiceServlet</servlet-name>
+		<servlet-class>com.google.api.server.spi.SystemServiceServlet</servlet-class>
+		<init-param>
+			<param-name>services</param-name>
+			<param-value/>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SystemServiceServlet</servlet-name>
+		<url-pattern>/_ah/spi/*</url-pattern>
+	</servlet-mapping>
+</web-app>
