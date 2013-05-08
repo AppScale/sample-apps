@@ -1,4 +1,4 @@
-application: mychannel2222
+application: mychannel
 version: 1
 runtime: python
 api_version: 1
