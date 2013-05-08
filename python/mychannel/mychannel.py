@@ -52,7 +52,7 @@ class CreateChannel(webapp.RequestHandler):
     token = channel.create_channel(randomness)
     self.response.out.write('Appid created: ' + randomness)
     self.response.out.write('Token created: ' + token)
-    self.response.out.write('<a href="/">Home</a>')
+    self.response.out.write('<div style="float:left;margin:12px auto;"><a href="/">Home</a></div>')
 
 class SendMessage(webapp.RequestHandler):
   def get(self):
