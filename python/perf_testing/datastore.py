@@ -26,13 +26,13 @@ def get_summation(points):
   Returns:
     A float which is the summation over the set of points.
   """ 
-  total = 0
+  total = 0.0
   for point in points:
     total += point 
   return total 
 
 def get_stdev(points):
-  """ Gets the standard deviation of a set of data float points.
+  """ Gets the standard deviation of a set of float data points.
   
   Args:
     points: A list of floats.
