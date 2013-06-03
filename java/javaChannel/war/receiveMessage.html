@@ -13,7 +13,7 @@
       };
       
       onMessage = function(m) {
-        alert('Message received: ' + m.data);
+        document.getElementById('msg').innerHTML=m.data;
       }
       
       openChannel = function() {
@@ -41,6 +41,8 @@
       <h2>Receiver Channel Test App</h2>
         My token: {{ token }} </br>
         My appid: {{ appid }}
+        <p>The sent message will appear here if successful:
+            <span id="msg"></span></p>
         <h3>Links:</h3>
         <a href='/createchannel'>Create Channel</a>
         <a href='/sendmessage'>Send Message</a>
