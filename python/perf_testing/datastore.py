@@ -45,7 +45,7 @@ def get_stdev(points):
   return math.sqrt((summation * summation / len(points)) - mean2) 
 
 def get_average(points):
-  """ Gets the average of a set of data float points.
+  """ Gets the average of a set of float data points.
   
   Args:
     points: A list of floats.
@@ -160,7 +160,7 @@ class Deletes(webapp2.RequestHandler):
     self.response.out.write(json.dumps(response))
 
 class Queries(webapp2.RequestHandler):
-  """ Handlers for deletes. """
+  """ Handlers for queries. """
 
   def __init__(self, request, response):
     """ Constructor.
@@ -177,8 +177,8 @@ class Queries(webapp2.RequestHandler):
     """ Handler for POST requests. 
 
     Request handler takes in the following arguments:
-      namespace: The namespace to delete to.
-      number: The number of entities to delete.
+      namespace: The namespace to query from.
+      number: The maximum number of entities to fetch per query.
     """
     namespace = self.request.get("namespace") 
     namespace_manager.set_namespace(namespace)

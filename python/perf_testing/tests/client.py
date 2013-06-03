@@ -16,6 +16,7 @@ def get_random_string():
   Returns:
     A str of random characters.
   """
+  return str(uuid.uuid4()).replace('-', '')[:10]
   newstr = ""
   for _ in range(10):
     newstr += str(random.choice('abcdefghijklmnopqrstuvwxyz'))
@@ -28,7 +29,7 @@ def fetch_operation(server, port, operation, namespace, number):
     server: A str of the server we are fetching from.
     port: An int of the port we are fetching from.
     operation: A str of the operation to perform (puts, gets, etc).
-    namespace: A str of t he namespace to perform puts on.
+    namespace: A str of the namespace to perform puts on.
     number: An int of the number of the put operations to perform.
   Returns:
     A str of the result from the server.
