@@ -6,4 +6,4 @@ threadsafe: false
 
 handlers:
 - url: /.*
-  script: datastore.app
+  script: performance.app

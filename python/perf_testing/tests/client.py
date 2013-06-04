@@ -16,7 +16,6 @@ def get_random_string():
   Returns:
     A str of random characters.
   """
-  return str(uuid.uuid4()).replace('-', '')[:10]
   newstr = ""
   for _ in range(10):
     newstr += str(random.choice('abcdefghijklmnopqrstuvwxyz'))

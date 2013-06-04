@@ -194,7 +194,7 @@ class Queries(webapp2.RequestHandler):
     self.response.out.write(json.dumps(response))
 
 
-application = webapp2.WSGIApplication([('/puts', Puts),
+app = webapp2.WSGIApplication([('/puts', Puts),
                                        ('/gets', Gets),
                                        ('/deletes', Deletes),
                                        ('/queries', Queries)], debug=True)
