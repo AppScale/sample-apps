@@ -1,5 +1,5 @@
 function ode(){
-  var $intern_0 = '', $intern_35 = '" for "gwt:onLoadErrorFn"', $intern_33 = '" for "gwt:onPropertyErrorFn"', $intern_21 = '"><\/script>', $intern_10 = '#', $intern_43 = '&', $intern_75 = '.cache.html', $intern_12 = '/', $intern_61 = '0041DD21E6C52B96FDEF0E2CDCA196B2', $intern_62 = '065EEA9BDE7F5948258C0533F3DD3733', $intern_64 = '1120B55C7F64EF8F5951D37DE4F50983', $intern_65 = '15955245570479B9A0842975B7BC102A', $intern_66 = '3155DEC84E85DDE23CB11D0ADC65FED2', $intern_67 = '7A934EDE1F463D730D8094DD24581086', $intern_68 = '82F358D72FB589F2D773E3313854274B', $intern_69 = '90C25B496AFC8F682B35B879F600F09D', $intern_74 = ':', $intern_27 = '::', $intern_77 = '<script defer="defer">ode.onInjectionDone(\'ode\')<\/script>', $intern_20 = '<script id="', $intern_30 = '=', $intern_11 = '?', $intern_70 = 'AFB72EDC0DCFDAEA1A6517191C0CE76E', $intern_32 = 'Bad handler "', $intern_71 = 'CC3FDAED7AF905CA718A2F1FC775BAB6', $intern_72 = 'CD928A1A501850CBAC1BB754167C500A', $intern_73 = 'D6F8369BB85C77D198AC39BEBFCEB1CF', $intern_76 = 'DOMContentLoaded', $intern_22 = 'SCRIPT', $intern_46 = 'Unexpected exception in locale detection, using default: ', $intern_45 = '_', $intern_44 = '__gwt_Locale', $intern_19 = '__gwt_marker_ode', $intern_23 = 'base', $intern_15 = 'baseUrl', $intern_4 = 'begin', $intern_3 = 'bootstrap', $intern_14 = 'clear.cache.gif', $intern_29 = 'content', $intern_63 = 'de', $intern_41 = 'default', $intern_9 = 'end', $intern_55 = 'gecko', $intern_56 = 'gecko1_8', $intern_5 = 'gwt.codesvr=', $intern_6 = 'gwt.hosted=', $intern_7 = 'gwt.hybrid', $intern_34 = 'gwt:onLoadErrorFn', $intern_31 = 'gwt:onPropertyErrorFn', $intern_28 = 'gwt:property', $intern_59 = 'hosted.html?ode', $intern_54 = 'ie6', $intern_53 = 'ie8', $intern_52 = 'ie9', $intern_36 = 'iframe', $intern_13 = 'img', $intern_37 = "javascript:''", $intern_58 = 'loadExternalRefs', $intern_40 = 'locale', $intern_42 = 'locale=', $intern_24 = 'meta', $intern_39 = 'moduleRequested', $intern_8 = 'moduleStartup', $intern_51 = 'msie', $intern_25 = 'name', $intern_1 = 'ode', $intern_17 = 'ode.nocache.js', $intern_26 = 'ode::', $intern_48 = 'opera', $intern_38 = 'position:absolute;width:0;height:0;border:none', $intern_50 = 'safari', $intern_16 = 'script', $intern_60 = 'selectingPermutation', $intern_2 = 'startup', $intern_18 = 'undefined', $intern_57 = 'unknown', $intern_47 = 'user.agent', $intern_49 = 'webkit';
+  var $intern_0 = '', $intern_36 = '" for "gwt:onLoadErrorFn"', $intern_34 = '" for "gwt:onPropertyErrorFn"', $intern_21 = '"><\/script>', $intern_10 = '#', $intern_44 = '&', $intern_76 = '.cache.html', $intern_12 = '/', $intern_24 = '//', $intern_63 = '10EDB6A05AD7CF78DE33D652F2FA2988', $intern_64 = '1BED2F09EEC387AC09C6568BD5A71683', $intern_65 = '3666288E994A2DD6F631C7AE06688B9C', $intern_66 = '3AAC98487E15A189921B4095815A90FE', $intern_67 = '4D97FCC7712BF44B80EA81F6B74EED66', $intern_68 = '530896524CBA229E398F6453F934577B', $intern_69 = '64588236235154F4D9D6BB63C108F5DA', $intern_70 = '74BB68B4ABC1DD14F6A01710FC4926B1', $intern_71 = '8521FDA3BF16EF1D5D5A0060EDDF843B', $intern_72 = '866A579AE47A1F2BE15FAD2A828062E1', $intern_73 = '9C2202EADAE819433E06C34ACFA2C5D1', $intern_75 = ':', $intern_28 = '::', $intern_78 = '<script defer="defer">ode.onInjectionDone(\'ode\')<\/script>', $intern_20 = '<script id="', $intern_31 = '=', $intern_11 = '?', $intern_33 = 'Bad handler "', $intern_74 = 'DDFC7BFBD687CC6C569F43B627BE8315', $intern_77 = 'DOMContentLoaded', $intern_22 = 'SCRIPT', $intern_47 = 'Unexpected exception in locale detection, using default: ', $intern_46 = '_', $intern_45 = '__gwt_Locale', $intern_19 = '__gwt_marker_ode', $intern_23 = 'base', $intern_15 = 'baseUrl', $intern_4 = 'begin', $intern_3 = 'bootstrap', $intern_14 = 'clear.cache.gif', $intern_30 = 'content', $intern_62 = 'de', $intern_42 = 'default', $intern_9 = 'end', $intern_56 = 'gecko', $intern_57 = 'gecko1_8', $intern_5 = 'gwt.codesvr=', $intern_6 = 'gwt.hosted=', $intern_7 = 'gwt.hybrid', $intern_35 = 'gwt:onLoadErrorFn', $intern_32 = 'gwt:onPropertyErrorFn', $intern_29 = 'gwt:property', $intern_60 = 'hosted.html?ode', $intern_55 = 'ie6', $intern_54 = 'ie8', $intern_53 = 'ie9', $intern_37 = 'iframe', $intern_13 = 'img', $intern_38 = "javascript:''", $intern_59 = 'loadExternalRefs', $intern_41 = 'locale', $intern_43 = 'locale=', $intern_25 = 'meta', $intern_40 = 'moduleRequested', $intern_8 = 'moduleStartup', $intern_52 = 'msie', $intern_26 = 'name', $intern_1 = 'ode', $intern_17 = 'ode.nocache.js', $intern_27 = 'ode::', $intern_49 = 'opera', $intern_39 = 'position:absolute;width:0;height:0;border:none', $intern_51 = 'safari', $intern_16 = 'script', $intern_61 = 'selectingPermutation', $intern_2 = 'startup', $intern_18 = 'undefined', $intern_58 = 'unknown', $intern_48 = 'user.agent', $intern_50 = 'webkit';
   var $wnd = window, $doc = document, $stats = $wnd.__gwtStatsEvent?function(a){
     return $wnd.__gwtStatsEvent(a);
   }
@@ -114,6 +114,11 @@ function ode(){
       return $intern_0;
     }
 
+    function isLocationOk(){
+      var loc = $doc.location;
+      return loc.href == loc.protocol + $intern_24 + loc.host + loc.pathname + loc.search + loc.hash;
+    }
+
     var tempBase = tryMetaTag();
     if (tempBase == $intern_0) {
       tempBase = tryNocacheJsTag();
@@ -124,7 +129,7 @@ function ode(){
     if (tempBase == $intern_0) {
       tempBase = tryBaseTag();
     }
-    if (tempBase == $intern_0) {
+    if (tempBase == $intern_0 && isLocationOk()) {
       tempBase = getDirectoryOfFile($doc.location.href);
     }
     tempBase = ensureAbsoluteUrl(tempBase);
@@ -133,18 +138,18 @@ function ode(){
   }
 
   function processMetas(){
-    var metas = document.getElementsByTagName($intern_24);
+    var metas = document.getElementsByTagName($intern_25);
     for (var i = 0, n = metas.length; i < n; ++i) {
-      var meta = metas[i], name = meta.getAttribute($intern_25), content;
+      var meta = metas[i], name = meta.getAttribute($intern_26), content;
       if (name) {
-        name = name.replace($intern_26, $intern_0);
-        if (name.indexOf($intern_27) >= 0) {
+        name = name.replace($intern_27, $intern_0);
+        if (name.indexOf($intern_28) >= 0) {
           continue;
         }
-        if (name == $intern_28) {
-          content = meta.getAttribute($intern_29);
+        if (name == $intern_29) {
+          content = meta.getAttribute($intern_30);
           if (content) {
-            var value, eq = content.indexOf($intern_30);
+            var value, eq = content.indexOf($intern_31);
             if (eq >= 0) {
               name = content.substring(0, eq);
               value = content.substring(eq + 1);
@@ -156,25 +161,25 @@ function ode(){
             metaProps[name] = value;
           }
         }
-         else if (name == $intern_31) {
-          content = meta.getAttribute($intern_29);
+         else if (name == $intern_32) {
+          content = meta.getAttribute($intern_30);
           if (content) {
             try {
               propertyErrorFunc = eval(content);
             }
              catch (e) {
-              alert($intern_32 + content + $intern_33);
+              alert($intern_33 + content + $intern_34);
             }
           }
         }
-         else if (name == $intern_34) {
-          content = meta.getAttribute($intern_29);
+         else if (name == $intern_35) {
+          content = meta.getAttribute($intern_30);
           if (content) {
             try {
               onLoadErrorFunc = eval(content);
             }
              catch (e) {
-              alert($intern_32 + content + $intern_35);
+              alert($intern_33 + content + $intern_36);
             }
           }
         }
@@ -218,27 +223,27 @@ function ode(){
   function maybeInjectFrame(){
     if (!frameInjected) {
       frameInjected = true;
-      var iframe = $doc.createElement($intern_36);
-      iframe.src = $intern_37;
+      var iframe = $doc.createElement($intern_37);
+      iframe.src = $intern_38;
       iframe.id = $intern_1;
-      iframe.style.cssText = $intern_38;
+      iframe.style.cssText = $intern_39;
       iframe.tabIndex = -1;
       $doc.body.appendChild(iframe);
-      $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_8, millis:(new Date).getTime(), type:$intern_39});
+      $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_8, millis:(new Date).getTime(), type:$intern_40});
       iframe.contentWindow.location.replace(base + initialHtml);
     }
   }
 
-  providers[$intern_40] = function(){
+  providers[$intern_41] = function(){
     var locale = null;
-    var rtlocale = $intern_41;
+    var rtlocale = $intern_42;
     try {
       if (!locale) {
         var queryParam = location.search;
-        var qpStart = queryParam.indexOf($intern_42);
+        var qpStart = queryParam.indexOf($intern_43);
         if (qpStart >= 0) {
           var value = queryParam.substring(qpStart + 7);
-          var end = queryParam.indexOf($intern_43, qpStart);
+          var end = queryParam.indexOf($intern_44, qpStart);
           if (end < 0) {
             end = queryParam.length;
           }
@@ -246,16 +251,16 @@ function ode(){
         }
       }
       if (!locale) {
-        locale = __gwt_getMetaProperty($intern_40);
+        locale = __gwt_getMetaProperty($intern_41);
       }
       if (!locale) {
-        locale = $wnd[$intern_44];
+        locale = $wnd[$intern_45];
       }
       if (locale) {
         rtlocale = locale;
       }
-      while (locale && !__gwt_isKnownPropertyValue($intern_40, locale)) {
-        var lastIndex = locale.lastIndexOf($intern_45);
+      while (locale && !__gwt_isKnownPropertyValue($intern_41, locale)) {
+        var lastIndex = locale.lastIndexOf($intern_46);
         if (lastIndex < 0) {
           locale = null;
           break;
@@ -264,55 +269,55 @@ function ode(){
       }
     }
      catch (e) {
-      alert($intern_46 + e);
+      alert($intern_47 + e);
     }
-    $wnd[$intern_44] = rtlocale;
-    return locale || $intern_41;
+    $wnd[$intern_45] = rtlocale;
+    return locale || $intern_42;
   }
   ;
-  values[$intern_40] = {de:0, 'default':1};
-  providers[$intern_47] = function(){
+  values[$intern_41] = {de:0, 'default':1};
+  providers[$intern_48] = function(){
     var ua = navigator.userAgent.toLowerCase();
     var makeVersion = function(result){
       return parseInt(result[1]) * 1000 + parseInt(result[2]);
     }
     ;
     if (function(){
-      return ua.indexOf($intern_48) != -1;
-    }
-    ())
-      return $intern_48;
-    if (function(){
       return ua.indexOf($intern_49) != -1;
     }
     ())
-      return $intern_50;
+      return $intern_49;
     if (function(){
-      return ua.indexOf($intern_51) != -1 && $doc.documentMode >= 9;
+      return ua.indexOf($intern_50) != -1;
     }
     ())
-      return $intern_52;
+      return $intern_51;
     if (function(){
-      return ua.indexOf($intern_51) != -1 && $doc.documentMode >= 8;
+      return ua.indexOf($intern_52) != -1 && $doc.documentMode >= 9;
     }
     ())
       return $intern_53;
+    if (function(){
+      return ua.indexOf($intern_52) != -1 && $doc.documentMode >= 8;
+    }
+    ())
+      return $intern_54;
     if (function(){
       var result = /msie ([0-9]+)\.([0-9]+)/.exec(ua);
       if (result && result.length == 3)
         return makeVersion(result) >= 6000;
     }
     ())
-      return $intern_54;
+      return $intern_55;
     if (function(){
-      return ua.indexOf($intern_55) != -1;
+      return ua.indexOf($intern_56) != -1;
     }
     ())
-      return $intern_56;
-    return $intern_57;
+      return $intern_57;
+    return $intern_58;
   }
   ;
-  values[$intern_47] = {gecko1_8:0, ie6:1, ie8:2, ie9:3, opera:4, safari:5};
+  values[$intern_48] = {gecko1_8:0, ie6:1, ie8:2, ie9:3, opera:4, safari:5};
   ode.onScriptLoad = function(){
     if (frameInjected) {
       loadDone = true;
@@ -322,7 +327,7 @@ function ode(){
   ;
   ode.onInjectionDone = function(){
     scriptsDone = true;
-    $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_58, millis:(new Date).getTime(), type:$intern_9});
+    $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_59, millis:(new Date).getTime(), type:$intern_9});
     maybeStartModule();
   }
   ;
@@ -335,31 +340,31 @@ function ode(){
       $wnd.location.reload();
       return;
     }
-    initialHtml = $intern_59;
+    initialHtml = $intern_60;
     strongName = $intern_0;
   }
-  $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date).getTime(), type:$intern_60});
+  $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date).getTime(), type:$intern_61});
   if (!isHostedMode()) {
     try {
-      unflattenKeylistIntoAnswers([$intern_41, $intern_50], $intern_61);
-      unflattenKeylistIntoAnswers([$intern_41, $intern_56], $intern_62);
-      unflattenKeylistIntoAnswers([$intern_63, $intern_50], $intern_64);
-      unflattenKeylistIntoAnswers([$intern_63, $intern_56], $intern_65);
-      unflattenKeylistIntoAnswers([$intern_63, $intern_54], $intern_66);
-      unflattenKeylistIntoAnswers([$intern_41, $intern_53], $intern_67);
-      unflattenKeylistIntoAnswers([$intern_63, $intern_52], $intern_68);
-      unflattenKeylistIntoAnswers([$intern_41, $intern_52], $intern_69);
-      unflattenKeylistIntoAnswers([$intern_63, $intern_48], $intern_70);
-      unflattenKeylistIntoAnswers([$intern_63, $intern_53], $intern_71);
-      unflattenKeylistIntoAnswers([$intern_41, $intern_54], $intern_72);
-      unflattenKeylistIntoAnswers([$intern_41, $intern_48], $intern_73);
-      strongName = answers[computePropValue($intern_40)][computePropValue($intern_47)];
-      var idx = strongName.indexOf($intern_74);
+      unflattenKeylistIntoAnswers([$intern_62, $intern_51], $intern_63);
+      unflattenKeylistIntoAnswers([$intern_62, $intern_54], $intern_64);
+      unflattenKeylistIntoAnswers([$intern_42, $intern_51], $intern_65);
+      unflattenKeylistIntoAnswers([$intern_42, $intern_53], $intern_66);
+      unflattenKeylistIntoAnswers([$intern_42, $intern_49], $intern_67);
+      unflattenKeylistIntoAnswers([$intern_42, $intern_55], $intern_68);
+      unflattenKeylistIntoAnswers([$intern_62, $intern_57], $intern_69);
+      unflattenKeylistIntoAnswers([$intern_62, $intern_55], $intern_70);
+      unflattenKeylistIntoAnswers([$intern_62, $intern_53], $intern_71);
+      unflattenKeylistIntoAnswers([$intern_42, $intern_54], $intern_72);
+      unflattenKeylistIntoAnswers([$intern_62, $intern_49], $intern_73);
+      unflattenKeylistIntoAnswers([$intern_42, $intern_57], $intern_74);
+      strongName = answers[computePropValue($intern_41)][computePropValue($intern_48)];
+      var idx = strongName.indexOf($intern_75);
       if (idx != -1) {
         softPermutationId = Number(strongName.substring(idx + 1));
         strongName = strongName.substring(0, idx);
       }
-      initialHtml = strongName + $intern_75;
+      initialHtml = strongName + $intern_76;
     }
      catch (e) {
       return;
@@ -371,7 +376,7 @@ function ode(){
       bodyDone = true;
       maybeStartModule();
       if ($doc.removeEventListener) {
-        $doc.removeEventListener($intern_76, onBodyDone, false);
+        $doc.removeEventListener($intern_77, onBodyDone, false);
       }
       if (onBodyDoneTimerId) {
         clearInterval(onBodyDoneTimerId);
@@ -380,7 +385,7 @@ function ode(){
   }
 
   if ($doc.addEventListener) {
-    $doc.addEventListener($intern_76, function(){
+    $doc.addEventListener($intern_77, function(){
       maybeInjectFrame();
       onBodyDone();
     }
@@ -394,8 +399,8 @@ function ode(){
   }
   , 50);
   $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_3, millis:(new Date).getTime(), type:$intern_9});
-  $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_58, millis:(new Date).getTime(), type:$intern_4});
-  $doc.write($intern_77);
+  $stats && $stats({moduleName:$intern_1, sessionId:$sessionId, subSystem:$intern_2, evtGroup:$intern_59, millis:(new Date).getTime(), type:$intern_4});
+  $doc.write($intern_78);
 }
 
 ode();

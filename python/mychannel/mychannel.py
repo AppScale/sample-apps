@@ -15,7 +15,6 @@ import logging
 import os
 import random
 import re
-from django.utils import simplejson
 from google.appengine.api import channel
 from google.appengine.api import users
 from google.appengine.ext import db
@@ -51,14 +50,17 @@ class CreateChannel(webapp.RequestHandler):
     randomness = randomString(5)
     token = channel.create_channel(randomness)
     self.response.out.write('Appid created: ' + randomness)
+    self.response.out.write('<div></div>')
     self.response.out.write('Token created: ' + token)
+    self.response.out.write('<div></div>')
+    self.response.out.write('<div style="float:left;"><a href="/">Home</a></div>')
 
 class SendMessage(webapp.RequestHandler):
   def get(self):
     token = channel.create_channel("senderappid")
     template_values = {'token': token,
                       'appid': 'receiverappid',
-                      'message': "helloworld"}
+                      'message': "Hello World! - The Channel API is working!"}
 
     path = os.path.join(os.path.dirname(__file__), 'sendMessage.html')
     self.response.out.write(template.render(path, template_values))
@@ -79,8 +81,8 @@ class ReceiveMessage(webapp.RequestHandler):
 
 class PostMessage(webapp.RequestHandler):
   def post(self):
-    message = "helloworld"
-    receiverid = "receiverappid" 
+    message = "Hello World! - The Channel API is working!"
+    receiverid = "receiverappid"
     channel.send_message(receiverid, message)
     self.response.out.write("message sent")
 
