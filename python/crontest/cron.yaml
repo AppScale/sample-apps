@@ -1,0 +1,4 @@
+cron:
+- description: Create a new entry in the Datastore
+  url: /create
+  schedule: every 1 minutes
