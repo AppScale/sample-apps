@@ -46,7 +46,6 @@ class DetectMultipleCrons(webapp2.RequestHandler):
     query = ndb.gql('SELECT * FROM LastUpdated ORDER BY update_time DESC')
     last_time_seen = None
     for entity in query:
-      self.response.out.write("last updated time is {0}<br />".format(entity.update_time))
       if last_time_seen is None:
         last_time_seen = entity.update_time
         continue
@@ -67,6 +66,12 @@ class AddNewEntry(webapp2.RequestHandler):
 
   def get(self):
     """ Receives GET requests and creates a LastUpdated model accordingly. """
+    LastUpdated().put()
+    self.response.out.write("added a new entry!")
+
+
+  def post(self):
+    """ Receives POST requests and creates a LastUpdated model accordingly. """
     LastUpdated().put()
     self.response.out.write("added a new entry!")
 
