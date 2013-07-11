@@ -32,7 +32,7 @@ class DetectMultipleCrons(webapp2.RequestHandler):
   
   # The number of seconds that need to separate each LastUpdated model's
   # creation time.
-  UPDATE_WINDOW = 60
+  UPDATE_WINDOW = 59
 
   
   def get(self):
