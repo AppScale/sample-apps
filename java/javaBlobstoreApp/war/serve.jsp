@@ -36,13 +36,13 @@
          %>
          <p>You can download the blob by putting the blob keys</p>
          <form action="/serve" method="post">
-            <input type="text" name="blob-key">
-            <input type="submit" value="Submit">
+            <input id="serve-blob-key" type="text" name="blob-key">
+            <input id="serve-submit" type="submit" value="Submit">
          </form>
          <p>You can delete a blob</p>
          <form action="/delete" method="post">
-            <input type="text" name="blob-key">
-            <input type="submit" value="Submit">
+            <input id="delete-blob-key" type="text" name="blob-key">
+            <input id="delete-submit" type="submit" value="Submit">
          </form>
     </body>
 </html>
