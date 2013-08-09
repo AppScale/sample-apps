@@ -17,7 +17,7 @@
             <input type="text" name="foo">
             <input type="file" name="myFile">
             <input type="text" name="description">
-            <input type="submit" value="Submit">
+            <input id="submit" type="submit" value="Submit">
         </form>
         
         <form action="/" method="get">
