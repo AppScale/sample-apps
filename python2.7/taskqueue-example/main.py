@@ -1,7 +1,7 @@
 import os
 import urllib
 import webapp2
-from google.appengine.api.labs import taskqueue
+from google.appengine.api import taskqueue
 from google.appengine.ext import db
 from google.appengine.ext.webapp import template
 
