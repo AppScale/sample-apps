@@ -1,3 +1,5 @@
+#!/usr/bin/python
+""" This example application increments a counter via the taskqueue API. """
 import os
 import urllib
 import webapp2
