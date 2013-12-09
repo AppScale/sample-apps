@@ -1,95 +1,89 @@
-// Copyright 2011 Google Inc. All rights reserved.
-// Use of this source code is governed by the Apache 2.0
-// license that can be found in the LICENSE file.
-
-package guestbook
+package hello
 
 import (
-	"http"
-	"io"
-	"os"
-	"template"
-	"time"
+    "html/template"
+    "net/http"
+    "time"
 
-	"appengine"
-	"appengine/datastore"
-	"appengine/user"
+    "appengine"
+    "appengine/datastore"
+    "appengine/user"
 )
 
 type Greeting struct {
-	Author  string
-	Content string
-	Date    datastore.Time
-}
-
-func serve404(w http.ResponseWriter) {
-	w.WriteHeader(http.StatusNotFound)
-	w.Header().Set("Content-Type", "text/plain")
-	io.WriteString(w, "Not Found")
-}
-
-func serveError(c appengine.Context, w http.ResponseWriter, err os.Error) {
-	w.WriteHeader(http.StatusInternalServerError)
-	w.Header().Set("Content-Type", "text/plain")
-	io.WriteString(w, "Internal Server Error")
-	c.Logf("%v", err)
-}
-
-var mainPage = template.MustParse(`<html><body>
-{.repeated section @}
-{.section Author}<b>{@|html}</b>{.or}An anonymous person{.end}
-wrote <blockquote>{Content|html}</blockquote>
-{.end}
-<form action="/sign" method="post">
-<div><textarea name="content" rows="3" cols="60"></textarea></div>
-<div><input type="submit" value="Sign Guestbook"></div>
-</form></body></html>`,
-	nil)
-
-func handleMainPage(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" || r.URL.Path != "/" {
-		serve404(w)
-		return
-	}
-	c := appengine.NewContext(r)
-	q := datastore.NewQuery("Greeting").Order("-Date").Limit(10)
-	var gg []*Greeting
-	_, err := q.GetAll(c, &gg)
-	if err != nil {
-		serveError(c, w, err)
-		return
-	}
-	w.Header().Set("Content-Type", "text/html")
-	if err := mainPage.Execute(w, gg); err != nil {
-		c.Logf("%v", err)
-	}
-}
-
-func handleSign(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "POST" {
-		serve404(w)
-		return
-	}
-	c := appengine.NewContext(r)
-	if err := r.ParseForm(); err != nil {
-		serveError(c, w, err)
-		return
-	}
-	g := &Greeting{
-		Content: r.FormValue("content"),
-		Date:    datastore.SecondsToTime(time.Seconds()),
-	}
-	if u := user.Current(c); u != nil {
-		g.Author = u.String()
-	}
-	if _, err := datastore.Put(c, datastore.NewIncompleteKey("Greeting"), g); err != nil {
-		serveError(c, w, err)
-		return
-	}
-	http.Redirect(w, r, "/", http.StatusFound)
+    Author  string
+    Content string
+    Date    time.Time
 }
 
 func init() {
-	http.HandleFunc("/", handleMainPage)
-	http.HandleFunc("/sign", handleSign)
+    http.HandleFunc("/", root)
+    http.HandleFunc("/sign", sign)
+}
+
+// guestbookKey returns the key used for all guestbook entries.
+func guestbookKey(c appengine.Context) *datastore.Key {
+    // The string "default_guestbook" here could be varied to have multiple guestbooks.
+    return datastore.NewKey(c, "Guestbook", "default_guestbook", 0, nil)
+}
+
+func root(w http.ResponseWriter, r *http.Request) {
+    c := appengine.NewContext(r)
+    // Ancestor queries, as shown here, are strongly consistent with the High
+    // Replication Datastore. Queries that span entity groups are eventually
+    // consistent. If we omitted the .Ancestor from this query there would be
+    // a slight chance that Greeting that had just been written would not
+    // show up in a query.
+    q := datastore.NewQuery("Greeting").Ancestor(guestbookKey(c)).Order("-Date").Limit(10)
+    greetings := make([]Greeting, 0, 10)
+    if _, err := q.GetAll(c, &greetings); err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+    if err := guestbookTemplate.Execute(w, greetings); err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+    }
+}
+
+var guestbookTemplate = template.Must(template.New("book").Parse(guestbookTemplateHTML))
+
+const guestbookTemplateHTML = `
+<html>
+  <body>
+    {{range .}}
+      {{with .Author}}
+        <p><b>{{.}}</b> wrote:</p>
+      {{else}}
+        <p>An anonymous person wrote:</p>
+      {{end}}
+      <pre>{{.Content}}</pre>
+    {{end}}
+    <form action="/sign" method="post">
+      <div><textarea name="content" rows="3" cols="60"></textarea></div>
+      <div><input type="submit" value="Sign Guestbook"></div>
+    </form>
+  </body>
+</html>
+`
+
+func sign(w http.ResponseWriter, r *http.Request) {
+    c := appengine.NewContext(r)
+    g := Greeting{
+        Content: r.FormValue("content"),
+        Date:    time.Now(),
+    }
+    if u := user.Current(c); u != nil {
+        g.Author = u.String()
+    }
+    // We set the same parent key on every Greeting entity to ensure each Greeting
+    // is in the same entity group. Queries across the single entity group
+    // will be consistent. However, the write rate to a single entity group
+    // should be limited to ~1/second.
+    key := datastore.NewIncompleteKey(c, "Greeting", guestbookKey(c))
+    _, err := datastore.Put(c, key, &g)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+    http.Redirect(w, r, "/", http.StatusFound)
 }
