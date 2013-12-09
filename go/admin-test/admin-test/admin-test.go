@@ -4,7 +4,7 @@ package admin_test
 
 import (
 	"fmt"
-	"http"
+	"net/http"
 
 	"appengine"
 	"appengine/user"
