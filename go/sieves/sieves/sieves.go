@@ -8,7 +8,7 @@ package sieves
 
 import (
 	"fmt"
-	"http"
+	"net/http"
 	"time"
 )
 
@@ -38,17 +38,16 @@ const NUM_PRIMES = 1000
 
 // The prime sieve: Daisy-chain filter processes together.
 func sieves(w http.ResponseWriter, r *http.Request) {
-	start := time.Seconds()
-	fmt.Fprintf(w, "the first %v prime numbers are:<br />", NUM_PRIMES)
+	start := time.Now()
+	fmt.Fprintf(w, "the first %v prime numbers are: ", NUM_PRIMES)
 	ch := make(chan int)              // Create a new channel.
 	go generate(ch)                   // Start generate() as a goroutine.
 	for i := 0; i < NUM_PRIMES; i++ { // Print the first hundred primes.
 		prime := <-ch
-		fmt.Fprintf(w, "%v<br />", prime)
+		fmt.Fprintf(w, "%v ", prime)
 		ch1 := make(chan int)
 		go filter(ch, ch1, prime)
 		ch = ch1
 	}
-	end := time.Seconds()
-	fmt.Fprintf(w, "<br /><br />the computation took %v seconds", end-start)
+	fmt.Fprintf(w, "the computation took %v seconds", time.Now().Sub(start))
 }
