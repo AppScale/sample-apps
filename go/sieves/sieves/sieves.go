@@ -49,5 +49,5 @@ func sieves(w http.ResponseWriter, r *http.Request) {
 		go filter(ch, ch1, prime)
 		ch = ch1
 	}
-	fmt.Fprintf(w, "the computation took %v seconds", time.Now().Sub(start))
+	fmt.Fprintf(w, "the computation took %v seconds", time.Since(start))
 }
