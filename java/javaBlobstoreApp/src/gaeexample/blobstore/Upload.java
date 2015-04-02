@@ -1,16 +1,15 @@
 package gaeexample.blobstore;
 
-import java.io.IOException;
-import java.util.Map;
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.blobstore.BlobstoreService;
-import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import java.io.IOException;
+import java.util.Map;
 
 public class Upload extends HttpServlet {
 
@@ -22,11 +21,14 @@ public class Upload extends HttpServlet {
         BlobKey blobKey = blobs.get("myFile");
         BlobKeyCache bc = BlobKeyCache.getBlobKeyCache();
 
+        String contextPath = req.getScheme().toString() + "://" + req.getServerName().toString() + ":" + String.valueOf(req.getServerPort());
+
         if (blobKey == null)
             System.out.println("blobkey is null");
         else {
+            System.out.println("blobkey is " + blobKey.getKeyString());
             bc.add(blobKey);
-            res.sendRedirect("/serve.jsp?blob-key=" + blobKey.getKeyString() + "&fromUpdate=1");
+            res.sendRedirect(res.encodeRedirectURL(contextPath + "/serve.jsp?blob-key=" + blobKey.getKeyString() + "&fromUpdate=1"));
         }
     }
 }
