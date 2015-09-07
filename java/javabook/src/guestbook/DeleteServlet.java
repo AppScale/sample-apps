@@ -13,7 +13,7 @@ public class DeleteServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-        Long id = (long)-1;
+        long id = (long)-1;
 		try{
 			id = Long.parseLong(req.getParameter("id"));
 		    PersistenceManager pm = PMF.get().getPersistenceManager();

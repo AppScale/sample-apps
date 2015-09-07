@@ -1,0 +1,284 @@
+diff --git a/AppController/lib/haproxy.rb b/AppController/lib/haproxy.rb
+index 2246524..57eb8a5 100644
+--- a/AppController/lib/haproxy.rb
++++ b/AppController/lib/haproxy.rb
+@@ -309,6 +309,16 @@ defaults
+ 
+   # Amount of time after which a health check is considered to have timed out
+   timeout check 5000
++
++  # Enable the web UI for haproxy statistics.
++  listen stats :1936
++      mode http
++      stats enable
++      stats hide-version
++      stats realm Haproxy\ Statistics
++      stats uri /
++      stats auth admin:pippo
++
+ CONFIG
+ 
+     # Create the sites enabled folder
+diff --git a/AppDB/view_all_records.py b/AppDB/view_all_records.py
+index 4644889..f31c286 100755
+--- a/AppDB/view_all_records.py
++++ b/AppDB/view_all_records.py
+@@ -1,17 +1,17 @@
+ #!/usr/bin/env python
+-""" 
+- View all application entities.
+-""" 
++
++""" View all application entities. """ 
+ 
+ import os
+ import sys
++import time
+ 
+ from dbconstants import *
+ import appscale_datastore_batch
+ 
+-_MAX_ENTITIES = 1000000
++_MAX_ENTITIES = 10000
+ 
+-def get_entities(table, schema, db):
++def get_entities(table, schema, db, start_key="", end_key="", start_inclusive=True):
+   """ Gets entities from a table.
+     
+   Args:
+@@ -21,57 +21,81 @@ def get_entities(table, schema, db):
+   Returns: 
+     The entire table up to _MAX_ENTITIES.
+   """
+-  return db.range_query(table, schema, "", "", _MAX_ENTITIES)
++  print "Fetching: {} - {}".format(start_key, end_key)
++  return db.range_query(table, schema, start_key, end_key, _MAX_ENTITIES, start_inclusive=start_inclusive, end_inclusive=True)
+ 
+ def view_all(entities, table, db):
+-  """ View all entities for a table
++  """ View all entities for a table.
+   
+   Args:
+-    entities: Shows all entities in a list
+-    table: The table these entities are from
+-    db: database accessor
++    entities: All entities in a list.
++    table: The table these entities are from.
++    db: Database accessor.
+   """
+-  print 
+-  print "TABLE:",table
+   for ii in entities:
+     print ii
+-  print
+ 
+ def main(argv):
+-  """ Main 
+-  """
++  """ Main function for viewing data entities. """
++
+   DB_TYPE="cassandra"
++  
+   if len(argv) < 2:
+-    print "usage: ./view_all_records.py db_type"
++    print "Usage: ./view_all_records.py [app_ID]"
+   else:
+-    DB_TYPE = argv[1]
++    app_id = argv[1]
+   
+   db = appscale_datastore_batch.DatastoreFactory.getDatastore(DB_TYPE)
+ 
+-  entities = get_entities(APP_ENTITY_TABLE, APP_ENTITY_SCHEMA, db)   
+-  view_all(entities, APP_ENTITY_TABLE, db) 
++  if app_id:
++    start_key = app_id
++    end_key = app_id + TERMINATING_STRING
++  else:
++    start_key = ""
++    end_key = ""
++
++  start_inclusive = True
++  print 
++  print "TABLE:", APP_ENTITY_TABLE
++  while True:
++    for retry in range(0, 5):
++      try:
++        entities = get_entities(APP_ENTITY_TABLE, APP_ENTITY_SCHEMA, db, start_key=start_key, end_key=end_key, start_inclusive=start_inclusive)
++#      view_all(entities, APP_ENTITY_TABLE, db)
++        break
++#      except MaximumRetryException:
++#        print "DB timeout. Backing off..."
++#        time.sleep(1)
++      except AppScaleDBConnectionError:
++        print "AppScaleDBConnectionError. Retrying..."
++
++    if len(entities) < _MAX_ENTITIES:
++      break
++
++    start_key = entities[-1].keys()[0]
++    start_inclusive = False
++    print "--------------------------------- Retrieved 100000 entities ------------------------------------"
++  print
++
+ 
+-  entities = get_entities(ASC_PROPERTY_TABLE, PROPERTY_SCHEMA, db)
+-  view_all(entities, ASC_PROPERTY_TABLE, db) 
++#  entities = get_entities(ASC_PROPERTY_TABLE, PROPERTY_SCHEMA, db)
++#  view_all(entities, ASC_PROPERTY_TABLE, db) 
+ 
+-  entities = get_entities(DSC_PROPERTY_TABLE, PROPERTY_SCHEMA, db)
+-  view_all(entities, DSC_PROPERTY_TABLE, db) 
++#  entities = get_entities(DSC_PROPERTY_TABLE, PROPERTY_SCHEMA, db)
++#  view_all(entities, DSC_PROPERTY_TABLE, db) 
+ 
+-  entities = get_entities(APP_KIND_TABLE, APP_KIND_SCHEMA, db)
+-  view_all(entities, APP_KIND_TABLE, db) 
++#  entities = get_entities(APP_KIND_TABLE, APP_KIND_SCHEMA, db)
++#  view_all(entities, APP_KIND_TABLE, db) 
+ 
+-  entities = get_entities(JOURNAL_TABLE, JOURNAL_SCHEMA, db)
+-  view_all(entities, JOURNAL_TABLE, db) 
++#  entities = get_entities(JOURNAL_TABLE, JOURNAL_SCHEMA, db)
++#  view_all(entities, JOURNAL_TABLE, db) 
+ 
+-  entities = get_entities(COMPOSITE_TABLE, COMPOSITE_SCHEMA, db)
+-  view_all(entities, COMPOSITE_TABLE, db) 
++#  entities = get_entities(COMPOSITE_TABLE, COMPOSITE_SCHEMA, db)
++#  view_all(entities, COMPOSITE_TABLE, db) 
+    
+-  entities = get_entities(METADATA_TABLE, METADATA_SCHEMA, db)
+-  view_all(entities, METADATA_TABLE, db)
++#  entities = get_entities(METADATA_TABLE, METADATA_SCHEMA, db)
++#  view_all(entities, METADATA_TABLE, db)
+ 
+ if __name__ == "__main__":
+-  try:
+-    main(sys.argv)
+-  except:
+-    raise
++  main(sys.argv)
+ 
+diff --git a/AppManager/app_manager_server.py b/AppManager/app_manager_server.py
+index 3337591..0fe17f0 100644
+--- a/AppManager/app_manager_server.py
++++ b/AppManager/app_manager_server.py
+@@ -330,8 +330,11 @@ def create_python27_start_cmd(app_name,
+          "--login_server " + login_ip,
+          "--skip_sdk_update_check",
+          "--nginx_host " + str(load_balancer_host),
++         "--smtp_host " + "email-smtp.us-east-1.amazonaws.com",
++         "--smtp_port 25",
++         "--smtp_user AKIAIO2JQDVDPVANQAOQ",
++         "--smtp_password Ajy9GtSADGhX1CKlzzvx6pK4ccnjUchZL4zaOePn2CFf",
+          "--require_indexes",
+-         "--enable_sendmail",
+          "--xmpp_path " + xmpp_ip,
+          "--php_executable_path=" + str(PHP_CGI_LOCATION),
+          "--uaserver_path " + db_location + ":"\
+diff --git a/AppServer/google/appengine/api/logservice/logservice.py b/AppServer/google/appengine/api/logservice/logservice.py
+index a634f5f..5f880a0 100644
+--- a/AppServer/google/appengine/api/logservice/logservice.py
++++ b/AppServer/google/appengine/api/logservice/logservice.py
+@@ -325,7 +325,7 @@ class LogsBuffer(object):
+       'logs' : formatted_logs
+     })
+ 
+-    SendLogsThread(payload, os.environ["NGINX_HOST"]).start()
++    #SendLogsThread(payload, os.environ["NGINX_HOST"]).start()
+     self._clear()
+ 
+     # AppScale: This currently causes problems when we try to call API requests
+diff --git a/AppServer/google/appengine/api/logservice/logservice_stub.py b/AppServer/google/appengine/api/logservice/logservice_stub.py
+index 22adf70..f0a3c8f 100644
+--- a/AppServer/google/appengine/api/logservice/logservice_stub.py
++++ b/AppServer/google/appengine/api/logservice/logservice_stub.py
+@@ -423,7 +423,7 @@ class LogServiceStub(apiproxy_stub.APIProxyStub):
+ 
+     nginx_host = os.environ['NGINX_HOST']
+ 
+-    logservice.SendLogsThread(payload, nginx_host).start()
++    #logservice.SendLogsThread(payload, nginx_host).start()
+ 
+     # AppScale: The following appear to cause a memory leak under high load.
+     # Investigate this once we wish to support the Logs API.
+diff --git a/AppServer/google/appengine/api/mail_stub.py b/AppServer/google/appengine/api/mail_stub.py
+index f5b73f2..f8ab043 100644
+--- a/AppServer/google/appengine/api/mail_stub.py
++++ b/AppServer/google/appengine/api/mail_stub.py
+@@ -39,6 +39,7 @@ import mimetypes
+ import re
+ import subprocess
+ import smtplib
++import time
+ 
+ from google.appengine.api import apiproxy_stub
+ 
+@@ -61,13 +62,13 @@ class MailServiceStub(apiproxy_stub.APIProxyStub):
+ 
+   def __init__(self,
+                host=None,
+-               port=25,
++               port=587,
+                user='',
+                password='',
+                enable_sendmail=False,
+                show_mail_body=False,
+                service_name='mail',
+-               allow_tls=False):
++               allow_tls=True):
+     """Constructor.
+ 
+     Args:
+@@ -203,6 +204,9 @@ class MailServiceStub(apiproxy_stub.APIProxyStub):
+     smtp = smtp_lib()
+     try:
+       smtp.connect(self._smtp_host, self._smtp_port)
++      start = time.time()
++      logging.info("Time to connect to SMTP server: {0}".format(
++        time.time() - start))
+ 
+       smtp.ehlo_or_helo_if_needed()
+       if self._allow_tls and smtp.has_extn('STARTTLS'):
+@@ -218,6 +222,7 @@ class MailServiceStub(apiproxy_stub.APIProxyStub):
+       smtp.sendmail(mime_message['From'], tos, mime_message.as_string())
+     finally:
+       smtp.quit()
++    logging.info("Time to send email: {0}".format(time.time() - start))
+ 
+   def _SendSendmail(self, mime_message,
+                     popen=subprocess.Popen,
+diff --git a/AppServer/google/appengine/api/urlfetch_stub.py b/AppServer/google/appengine/api/urlfetch_stub.py
+index 041716f..4a7bfbb 100644
+--- a/AppServer/google/appengine/api/urlfetch_stub.py
++++ b/AppServer/google/appengine/api/urlfetch_stub.py
+@@ -231,6 +231,10 @@ class URLFetchServiceStub(apiproxy_stub.APIProxyStub):
+         else:
+           adjusted_headers[header.key().title()] = header.value()
+ 
++      # Make sure we used https when talking to AWS cloudsearch.
++      if host.startswith('cloudsearch.us'):
++        protocol = 'https'
++
+       logging.debug('Making HTTP request: host = %s, '
+                     'url = %s, payload = %s, headers = %s',
+                     host, url, payload, adjusted_headers)
+diff --git a/firewall.conf b/firewall.conf
+index 6196fd9..dda1f9d 100755
+--- a/firewall.conf
++++ b/firewall.conf
+@@ -25,6 +25,7 @@ iptables -A INPUT -p tcp --dport 8080:8100 -j ACCEPT   # nginx -> Google App Eng
+ iptables -A INPUT -p tcp --dport 4380:4400 -j ACCEPT   # nginx -> Google App Engine (SSL)
+ iptables -A INPUT -p tcp --dport 17443 -j ACCEPT       # AppController
+ iptables -A INPUT -p tcp --dport 4343 -j ACCEPT        # UserAppServer
++iptables -A INPUT -p tcp --dport 1936 -j ACCEPT        # haproxy stat
+ 
+ ALL_IPS_FILE=/etc/appscale/all_ips
+ MASTER_FILE=/etc/appscale/masters
+@@ -34,6 +35,7 @@ SLAVES_FILE=/etc/appscale/slaves
+ cat $ALL_IPS_FILE $MASTER_FILE $SLAVES_FILE | sort -u | while read line; do
+   test -n "$line" && iptables -A INPUT -s ${line} -j ACCEPT
+ done
++iptables -A INPUT -s 54.85.152.55 -j ACCEPT
+ 
+ # Drop all other connections
+ iptables -A INPUT -j DROP

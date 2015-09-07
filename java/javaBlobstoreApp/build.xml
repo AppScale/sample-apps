@@ -1,0 +1,42 @@
+<project>
+  <property name="sdk.dir" location="/Users/meni/sdk/appengine-java-sdk-1.8.0" />
+
+  <import file="${sdk.dir}/config/user/ant-macros.xml" />
+
+  <path id="project.classpath">
+    <pathelement path="war/WEB-INF/classes" />
+    <fileset dir="war/WEB-INF/lib">
+      <include name="**/*.jar" />
+    </fileset>
+    <fileset dir="${sdk.dir}/lib">
+      <include name="shared/**/*.jar" />
+    </fileset>
+  </path>
+
+  <target name="compile" description="Compiles Java source and copies other source files to the WAR.">
+    <mkdir dir="war/WEB-INF/classes" />
+    <copy todir="war/WEB-INF/classes">
+      <fileset dir="src">
+        <exclude name="**/*.java" />
+      </fileset>
+    </copy>
+    <javac
+        srcdir="src"
+        destdir="war/WEB-INF/classes"
+        classpathref="project.classpath"
+        debug="on" />
+  </target>
+
+  <target name="clean" description="Delete all generated files">
+    <delete dir="war/WEB-INF/classes"/>
+    <delete file="javaBlobstoreApp.war"/>
+  </target>
+
+  <target name="war" depends="compile">
+    <war destfile="javaBlobstoreApp.war" webxml="war/WEB-INF/web.xml">
+      <fileset dir="war"/>
+      <lib dir="war/WEB-INF/lib"/>
+      <classes dir="war/WEB-INF/classes"/>
+    </war>
+  </target>
+</project>
