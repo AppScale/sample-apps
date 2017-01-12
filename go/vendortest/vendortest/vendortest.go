@@ -2,6 +2,6 @@
 
 package vendortest
 
-import _ "github.com/appscale/sample-apps/go/vendortestcode/vendortestcode"
+import _ "github.com/appscale/sample-apps/go/vendortestcode/app"
 
 func init() {}

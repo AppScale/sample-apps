@@ -1,6 +1,6 @@
 // test that go vendoring is working
 
-package vendortestcode
+package app
 
 import (
 	"fmt"
